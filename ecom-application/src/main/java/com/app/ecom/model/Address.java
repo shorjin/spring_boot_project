@@ -1,4 +1,4 @@
-package com.app.ecom;
+package com.app.ecom.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,17 +9,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity(name = "addresses")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity (name = "user_table")
-//User is reserved word for many database
-//@Entity
-public class User {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String firstName;
-    private String lastName;
+    private String street;
+    private String city;
+    private String state;
+    private String Country;
+    private String zipcode;
 
 
 
