@@ -51,3 +51,18 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 }
+
+//User sends HTTP request
+//→ for example: POST /api/users with a JSON body
+//
+//UserController handles the request
+//→ calls userService.addUser(userRequest)
+//
+//UserService contains business logic
+//→ prepares a User object and calls userRepository.save(user)
+//
+//UserRepository talks to the database
+//→ actually saves the user into the database
+//
+//Response flows back to client
+//→ "User added successfully"

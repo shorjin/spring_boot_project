@@ -36,6 +36,12 @@ public class UserService {
         userRepository.save(user);
 
     }
+
+//    把 前端发来的请求数据（UserRequest） ➜ 更新到已有的数据库实体对象（User）。
+//    🧠 举个例子：
+//用户用前端表单修改资料，点了“保存”按钮，传给后端一份 UserRequest：
+//    你不能直接把这个 UserRequest 存进数据库，要先更新已有的 User 实体对象，所以：
+//updateUserFromRequest(existingUser, userRequest);
     private void updateUserFromRequest(User user, UserRequest userRequest) {
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
@@ -85,6 +91,9 @@ public class UserService {
                 }).orElse(false);
 
         }
+
+
+//        把 数据库查到的 User 实体对象 ➜ 转换成 给前端返回的 UserResponse DTO。
      private UserResponse mapToUserResponse (User user)   {
         UserResponse response = new UserResponse();
          response.setId(String.valueOf(user.getId()));
