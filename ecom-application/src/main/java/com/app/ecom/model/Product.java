@@ -18,7 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String name;
     private String description;
     private BigDecimal price;
