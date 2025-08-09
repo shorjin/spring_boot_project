@@ -1,0 +1,127 @@
+// create docker image with spring boot
+mvn spring-boot:build-image "-Dspring-boot.build-image.imageName=shorjin/ecom-application
+
+// docker commands
+// pull image from docker hub
+docker pull <image>
+
+// push image to docker hub with username/image name
+docker push <username/image>
+
+// run container
+docker run -it -d -p <host-port>:<container-port> --name <name> <image>
+
+Explanation of each flag:
+
+    docker run: Command to start a new container.
+
+    -i: Interactive mode (keeps STDIN open).
+
+    -t: Allocates a pseudo-TTY.
+
+    -d: Detached mode (runs the container in the background).
+
+    -p <host-port>:<container-port>: Maps a port on your host to a port in the container.
+
+    --name <name>: Assigns a custom name to your container.
+
+    <image>: The image you want to run (e.g., nginx, myapp:latest).
+
+    example:docker run -it -d -p 8080:80 --name mynginx nginx
+    This runs the nginx container in detached and interactive mode, maps port 8080 on the host to 80 in the container, and names it mynginx
+
+
+  // stop running container
+  docker stop <container-id or container-name>
+
+  Correct Examples:
+  docker stop mynginx
+  docker stop a1b2c3d4e5f6
+
+  //How to find the running container ID or name?
+  docker ps
+  //find all the  container ID or name?
+  docker ps-a
+
+  // list all the images on the hosting machine
+  docker images
+
+  // log in /assess a running container
+  docker exec -it <container-name/container-id> bash
+
+  // build a image from dockerfile . here means current directory
+  docker build -t <username/image> .
+
+  // get the logs of a particular container is running or a container that exists
+  docker logs <container-name/container-id>
+
+   // give you information about a particular container
+    docker inspect <container-name/container-id>
+
+  // start a container
+  docker start <container-id or container-name>
+
+  // remove a stopped container
+  docker rm <container-id or container-name>
+
+  // remove a image from local storage
+  docker rmi <image-id/image-name>
+
+
+  //start a PostgreSQL 14 database in a Docker container in the background.
+  Here’s what each part means:
+
+      docker run → Start a new container.
+
+      -d → Detached mode (runs in the background).
+
+      --name db → Names the container db so you can refer to it easily later.
+
+      -e POSTGRES_PASSWORD=mysecretpassword → Sets an environment variable in the container, telling PostgreSQL to use mysecretpassword as the postgres superuser password.
+
+      postgres:14 → The image to use (PostgreSQL version 14).
+  docker run -d --name db -e POSTGRES_PASSWORD=mysecretpassword postgres:14
+
+  // run another container
+  docker run -d --name pgadmin -e PGADMIN_DEFAULT_EMAIL=user@domain.com -e PGADMIN_DEFAULT_PASSWORD=SuperSecret dpage/pgadmin4
+
+  That command runs pgAdmin 4 (a web-based PostgreSQL management tool) in Docker.
+
+  Here’s the breakdown:
+
+      docker run → Start a new container.
+
+      -d → Detached mode (runs in background).
+
+      --name pgadmin → Names the container pgadmin.
+
+      -e PGADMIN_DEFAULT_EMAIL=user@domain.com → Sets the default login email for pgAdmin.
+
+      -e PGADMIN_DEFAULT_PASSWORD=SuperSecret → Sets the default password for that pgAdmin login.
+
+      dpage/pgadmin4 → The pgAdmin 4 Docker image.
+
+      // your pgadmin container can reach the db container by its name db — but that only happens if they’re on the same Docker network.
+      docker exec -it pgadmin ping db
+
+      // correct method
+      // delete a network
+      docker network prune
+
+      // remove all the container
+      docker rm -f db pgadmin
+
+      # Create a network
+      docker network create my-network
+
+      # Run PostgreSQL in that network
+      docker run -d --name db --network my-network -e POSTGRES_PASSWORD=mysecretpassword postgres:14
+
+      # Run pgAdmin in that network
+      docker run -d --name pgadmin --network my-network -e PGADMIN_DEFAULT_EMAIL=user@domain.com -e PGADMIN_DEFAULT_PASSWORD=SuperSecret dpage/pgadmin4
+
+      // run docker
+      docker compose up
+
+      // http://localhost:5050/
+      pg admin password: admin
