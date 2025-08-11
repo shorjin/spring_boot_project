@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Data
+//collection name will be shown in mangodb as document name
 @Document(collection ="users")
 //User is reserved word for many database
 //@Entity

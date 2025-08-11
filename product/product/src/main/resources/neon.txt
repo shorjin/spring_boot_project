@@ -1,0 +1,20 @@
+1. Sign in & create a project
+
+    Go to https://neon.tech.
+
+    Sign in (GitHub, Google, or email).
+
+    Click New Project.
+
+    Pick the PostgreSQL version (the default is usually fine) and create it.
+
+2. Get your connection string
+
+    From your project dashboard, click Connect.
+
+    Choose Connection string.(JDBC)
+
+    You’ll see something like:
+
+    postgresql://<user>:<password>@<host>/<database>?sslmode=require
+3. Update your application.yml

@@ -61,3 +61,19 @@ public interface UserRepository extends MongoRepository<User, String> {
     Change method parameters and return types involving IDs from Long to String.
 
     Update any logic assuming SQL behavior to fit MongoDB querying and updates.
+
+
+
+6. How to Connect a Java Application to MongoDB Atlas
+
+    Create a Project in MongoDB Atlas.
+
+    Create a Cluster within the project.
+
+    Click on "Connect" in the cluster dashboard.
+
+    Select "Drivers" as the connection method.
+
+    Copy the provided connection URI and update your application.yml file with it. Replace <password> in the URI with your actual MongoDB user password.
+
+    Make sure the spring.data.mongodb.database property in application.yml matches your desired database name.

@@ -1,0 +1,76 @@
+1️⃣ Add MySQL dependency & remove the old one
+In your pom.xml remove the PostgreSQL or MongoDB dependency and add MySQL:
+
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+2️⃣ Install & start MySQL locally
+
+    Download MySQL from https://dev.mysql.com/downloads/mysql/
+
+    Make sure it’s running locally (default port 3306).
+
+    Create a database for your app:
+
+3️⃣ Update application.yml
+
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: jdbc:mysql://localhost:3307/productservice
+    username: shorjin
+    password: shorjin
+    (The password you set when installing MySQL locally or in your Docker container.
+    Use the password that matches where MySQL is running (local or Docker))
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+ // format_sql set true can show better format in the console when running this application
+
+
+ docker file setting:
+ services:
+   mysql:
+     container_name: mysql_container
+     image: mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: shorjin
+       MYSQL_DATABASE: shorjin
+       MYSQL_USER: shorjin
+       MYSQL_PASSWORD: shorjin
+     volumes:
+       - mysql_data:/var/lib/mysql
+     ports:
+       - "3307:3306"
+     networks:
+       - mysql
+     restart: unless-stopped
+
+   phpmyadmin:
+     container_name: phpmyadmin_container
+     image: phpmyadmin/phpmyadmin
+     environment:
+       PMA_HOST: mysql
+       PMA_PORT: 3306
+       MYSQL_ROOT_PASSWORD: shorjin
+     ports:
+       - "8484:80"
+     networks:
+       - mysql
+     restart: unless-stopped
+
+ networks:
+   mysql:
+     driver: bridge
+
+ volumes:
+   mysql_data:

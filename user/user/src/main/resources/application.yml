@@ -3,8 +3,12 @@ spring:
     name: user-service
   data:
     mongodb:
-      uri: mongodb://localhost:27017/userdb
+      uri: mongodb+srv://shorjin09:iHt1BktvwtF99eMr@user-data.yrq6sbl.mongodb.net/?retryWrites=true&w=majority&appName=user-data
       database: userdb
+## connect to local mangodb
+#    mongodb:
+#      uri: mongodb://localhost:27017/userdb
+#      database: userdb
 
 
 #   connect to postgresql

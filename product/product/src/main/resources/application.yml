@@ -2,9 +2,14 @@ spring:
   application:
     name: product-service
   datasource:
+#    connect to local postgresql
     url: jdbc:postgresql://localhost:5432/product
     username: shorjin
     password: shorjin
+#    connect to Neon cloud postgresql
+#    url: jdbc:postgresql://ep-divine-rice-aewxw3aa-pooler.c-2.us-east-2.aws.neon.tech/product?sslmode=require&channel_binding=require
+#    username: neondb_owner
+#    password: npg_90WBUupkCMFX
   jpa:
     database: POSTGRESQL
     show-sql: true
