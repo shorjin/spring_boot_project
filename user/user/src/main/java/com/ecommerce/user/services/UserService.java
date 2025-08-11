@@ -60,13 +60,13 @@ public class UserService {
     }
 
 
-    public Optional<UserResponse> fetchUser(long id) {
-        return userRepository.findById(id)
+    public Optional<UserResponse> fetchUser(String id) {
+        return userRepository.findById(String.valueOf(id))
                 .map(this::mapToUserResponse);
     }
 
-    public void deleteUser(long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String id) {
+        userRepository.deleteById(String.valueOf(id));
     }
 
 //    public boolean updateUser(long id, User updatedUser) {
@@ -81,8 +81,8 @@ public class UserService {
 //                }).orElse(false);
 //        }
 
-    public boolean updateUser(long id, UserRequest updatedUserRequest) {
-        return userRepository.findById(id)
+    public boolean updateUser(String id, UserRequest updatedUserRequest) {
+        return userRepository.findById(String.valueOf(id))
 
                 .map(existingUser ->{
                     updateUserFromRequest(existingUser, updatedUserRequest);

@@ -1,0 +1,63 @@
+How to migrate from PostgreSQL to MongoDB in Spring Boot
+1. Update pom.xml
+
+    Remove PostgreSQL dependencies (e.g., spring-boot-starter-data-jpa, postgresql driver).
+
+    Add MongoDB dependencies:
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-mongodb</artifactId>
+</dependency>
+
+2. Update application.yml (or application.properties)
+
+    Replace PostgreSQL datasource config with MongoDB config, e.g.:
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/yourdbname
+
+    Remove any JPA or Hibernate-specific configs.
+
+3. Update your Model classes (User, Address, etc.)
+
+    Remove:
+
+        @Entity annotation
+
+        JPA-related annotations like @GeneratedValue, @CreationTimestamp, @UpdateTimestamp
+
+        Lombok annotations like @NoArgsConstructor if not needed
+
+        Any JPA relationships like @OneToMany, @ManyToOne
+
+        Remove entity type for Address model
+
+    Add:
+
+        @Document(collection = "users") (or appropriate collection name)
+
+        Use @Id from org.springframework.data.annotation.Id for primary key
+
+    Change ID type:
+
+        From Long/Integer to String (MongoDB’s _id is a String/ObjectId)
+
+    Adjust fields and relationships since MongoDB uses embedded documents or references differently.
+
+4. Update your Repository interfaces
+
+    Change from extending JpaRepository to extending MongoRepository:
+
+public interface UserRepository extends MongoRepository<User, String> {
+    // ...
+}
+
+    Note the ID type changes to String.
+5. Update Service and Controller layers
+
+    Change method parameters and return types involving IDs from Long to String.
+
+    Update any logic assuming SQL behavior to fit MongoDB querying and updates.
